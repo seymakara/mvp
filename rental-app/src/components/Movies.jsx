@@ -38,25 +38,27 @@ class Movies extends Component {
 
   handleTypeSelect = (type) => {
     this.setState({
-      selectedType: type
+      selectedType: type,
+      currentPage: 1
     })
   }
 
   componentDidMount = () => {
-    this.setState({
-      movies: getMovies(),
-      types: getGenres()
-    })
+    const types = [{ name: 'All Genres' }, ...getGenres()]
+    this.setState({ movies: getMovies(), types })
   }
 
   render() {
     const { length: movieCount } = this.state.movies;
-    const { currentPage, itemsPerPage, movies: AllMovies } = this.state;
+    const { currentPage, itemsPerPage, movies: allMovies, selectedType } = this.state;
     if (movieCount === 0) {
       return <p>There are no movies left to rent!</p>
     }
 
-    const movies = paginate(AllMovies, currentPage, itemsPerPage);
+    const filteredItems = selectedType && selectedType._id
+      ? allMovies.filter(movie => movie.genre._id === selectedType._id)
+      : allMovies;
+    const movies = paginate(filteredItems, currentPage, itemsPerPage);
 
     return (
       <div className='row'>
@@ -67,7 +69,7 @@ class Movies extends Component {
             onSelect={this.handleTypeSelect} />
         </div>
         <div className="col">
-          <p>There are {movieCount} movies in the stock!</p>
+          <p>There are {filteredItems.length} movies in the stock!</p>
           <table className="table">
             <thead>
               <tr>
@@ -107,7 +109,7 @@ class Movies extends Component {
             </tbody>
           </table>
           <Pagination
-            itemsCount={movieCount}
+            itemsCount={filteredItems.length}
             itemsPerPage={itemsPerPage}
             currentPage={currentPage}
             onPageChange={this.handlePageChange}

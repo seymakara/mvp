@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Like from './Like';
+import { Link } from 'react-router-dom';
 
 const MovieTable = (props) => {
   const { movies, handleLike, handleDelete } = props
@@ -9,8 +10,8 @@ const MovieTable = (props) => {
         <tr>
           <th>Title</th>
           <th>Genre</th>
-          <th>Stock</th>
-          <th>Rate</th>
+          <th>My Score</th>
+          <th>Imdb Score</th>
           <th></th>
           <th></th>
         </tr>
@@ -19,10 +20,10 @@ const MovieTable = (props) => {
         {movies.map(movie => {
           return (
             <tr key={movie._id}>
-              <td>{movie.title}</td>
+              <td><Link to={`/movies/${movie._id}`}>{movie.title}</Link></td>
               <td>{movie.genre.name}</td>
-              <td>{movie.numberInStock}</td>
-              <td>{movie.dailyRentalRate}</td>
+              <td>{movie.myScore}</td>
+              <td>{movie.imdbScore}</td>
               <td>
                 <Like
                   liked={movie.liked}
@@ -35,7 +36,7 @@ const MovieTable = (props) => {
                   onClick={() => handleDelete(movie)}
                 >
                   Delete
-                    </button>
+                </button>
               </td>
             </tr>
           )

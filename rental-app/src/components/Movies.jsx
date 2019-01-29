@@ -4,6 +4,7 @@ import MoviesTable from './MoviesTable'
 import { Pagination, paginate } from './Pagination';
 import Categories from './Categories'
 import { getGenres } from '../services/fakeGenreService';
+import { Link } from 'react-router-dom';
 
 class Movies extends Component {
   state = {
@@ -69,7 +70,13 @@ class Movies extends Component {
             onSelect={this.handleTypeSelect} />
         </div>
         <div className="col">
-          <p>There are {filteredItems.length} movies in the stock!</p>
+          <Link
+            to='/movies/new'
+            className='btn btn-primary'
+            style={{ marginBottom: 20 }}
+          >
+            Add
+          </Link>
           <MoviesTable movies={movies} handleDelete={this.handleDelete} handleLike={this.handleLike} />
           <Pagination
             itemsCount={filteredItems.length}

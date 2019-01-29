@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
+import FormTemplate from './FormTemplate';
 
-
-class Login extends Component {
+class Login extends FormTemplate {
   state = {
-    account: { username: '', password: '' }
+    data: { username: '', password: '' }
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
+  doSubmit = () => {
     console.log('submitted!')
   }
 
-  handleChange = e => {
-    const account = { ...this.state.account };
-    account[e.currentTarget.name] = e.currentTarget.value;
-    this.setState({ account })
-  }
-
   render() {
-    const { account } = this.state
+    const { data } = this.state
     return (
       < div >
         <h1>Login</h1>
@@ -27,25 +20,25 @@ class Login extends Component {
             <label htmlFor="username">Username</label>
             <input
               name='username'
-              value={account.username}
+              value={data.username}
               onChange={this.handleChange}
               autoFocus
               id='username'
               type="text"
               className="form-control"
-              required="true"
+              required={true}
             />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
               name='password'
-              value={account.password}
+              value={data.password}
               onChange={this.handleChange}
               id='password'
               type="password"
               className="form-control"
-              required="true"
+              required={true}
             />
           </div>
           <button className="btn btn-primary">Login</button>

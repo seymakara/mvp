@@ -77,7 +77,6 @@ class Movies extends Component {
           >
             Add
           </Link>
-          {/* <p>There are {filteredItems.length} movies in the stock!</p> */}
           <MoviesTable movies={movies} handleDelete={this.handleDelete} handleLike={this.handleLike} />
           <Pagination
             itemsCount={filteredItems.length}

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Movies from './components/Movies';
-import Customers from './components/Customers';
-import Rental from './components/Rental';
+import Watchlist from './components/Watchlist';
 import NotFound from './components/notFound';
 import NavBar from './components/NavBar';
 import ItemForm from './components/ItemForm';
@@ -19,8 +18,7 @@ class App extends Component {
             <Route path='/login' component={Login} />
             <Route path='/movies/:id' component={ItemForm} />
             <Route path='/movies' component={Movies} />
-            <Route path='/customers' component={Customers} />
-            <Route path='/rentals' component={Rental} />
+            <Route path='/watchlist' component={Watchlist} />
             <Route path='/not-found' component={NotFound} />
             <Redirect from='/' exact to='/movies' />
             <Redirect to='/not-found' />

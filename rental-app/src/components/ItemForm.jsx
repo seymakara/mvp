@@ -8,8 +8,8 @@ class ItemForm extends FormTemplate {
     data: {
       title: '',
       genreId: '',
-      numberInStock: '',
-      dailyRentalRate: '',
+      myScore: '',
+      imdbScore: '',
     },
     genres: []
   }
@@ -27,8 +27,8 @@ class ItemForm extends FormTemplate {
       _id: movie._id,
       title: movie.title,
       genreId: movie.genre._id,
-      numberInStock: movie.numberInStock,
-      dailyRentalRate: movie.dailyRentalRate,
+      myScore: movie.myScore,
+      imdbScore: movie.imdbScore,
     }
     this.setState({ data: data })
   }
@@ -46,7 +46,7 @@ class ItemForm extends FormTemplate {
         <form onSubmit={this.handleSubmit}>
           {this.renderInput('title', 'Title')}
           {this.renderSelect('genreId', 'Genre', this.state.genres)}
-          {this.renderInput('numberInStock', 'Number In Stock', 'number')}
+          {this.renderInput('myScore', 'My Score', 'number')}
           {this.renderButton('Save')}
         </form>
       </div>

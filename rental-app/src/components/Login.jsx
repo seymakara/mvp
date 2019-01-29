@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormTemplate from './FormTemplate';
+import { Redirect } from 'react-router-dom';
 
 class Login extends FormTemplate {
   state = {
@@ -7,7 +8,7 @@ class Login extends FormTemplate {
   }
 
   doSubmit = () => {
-    console.log('submitted!')
+    this.props.history.push('/movies')
   }
 
   render() {
@@ -18,7 +19,6 @@ class Login extends FormTemplate {
           {this.renderInput('username', 'Username')}
           {this.renderInput('password', 'Password', 'password')}
           {this.renderButton('Login')}
-
         </form>
       </div >
     );

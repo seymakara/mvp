@@ -18,7 +18,7 @@ class FormTemplate extends Component {
 
   renderButton = (label) => {
     return (
-      <button className="btn btn-primary">Login</button>
+      <button className="btn btn-primary">{label}</button>
     )
   }
 

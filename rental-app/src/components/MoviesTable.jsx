@@ -22,8 +22,8 @@ const MovieTable = (props) => {
             <tr key={movie._id}>
               <td><Link to={`/movies/${movie._id}`}>{movie.title}</Link></td>
               <td>{movie.genre.name}</td>
-              <td>{movie.numberInStock}</td>
-              <td>{movie.dailyRentalRate}</td>
+              <td>{movie.myScore}</td>
+              <td>{movie.imdbScore}</td>
               <td>
                 <Like
                   liked={movie.liked}
@@ -36,7 +36,7 @@ const MovieTable = (props) => {
                   onClick={() => handleDelete(movie)}
                 >
                   Delete
-                    </button>
+                </button>
               </td>
             </tr>
           )

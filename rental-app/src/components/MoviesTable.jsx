@@ -10,8 +10,8 @@ const MovieTable = (props) => {
         <tr>
           <th>Title</th>
           <th>Genre</th>
-          <th>Stock</th>
-          <th>Rate</th>
+          <th>My Score</th>
+          <th>Imdb Score</th>
           <th></th>
           <th></th>
         </tr>

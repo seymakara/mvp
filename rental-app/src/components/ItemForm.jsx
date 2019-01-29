@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { getMovie, saveMovie } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
+import FormTemplate from './FormTemplate';
 
-class ItemForm extends Component {
+class ItemForm extends FormTemplate {
   state = {
     data: {
       title: '',
@@ -16,11 +17,12 @@ class ItemForm extends Component {
     const genres = getGenres();
     this.setState({ genres })
 
-    const movieId = this.props.match.params.genreId
+    const movieId = this.props.match.params.id
     if (movieId === 'new') return;
 
     const movie = getMovie(movieId);
-    if (!movie) return this.props.history.replace('/not-found')
+    if (!movie) return this.props.history.replace('/not-found');
+
     let data = {
       _id: movie._id,
       title: movie.title,
@@ -38,7 +40,17 @@ class ItemForm extends Component {
 
 
   render() {
-    return (<h1>{this.state.title}</h1>);
+    return (
+      <div>
+        <h1>Add Movie</h1>
+        <form onSubmit={this.handleSubmit}>
+          {this.renderInput('title', 'Title')}
+          {this.renderSelect('genreId', 'Genre', this.state.genres)}
+          {this.renderInput('numberInStock', 'Number In Stock', 'number')}
+          {this.renderButton('Save')}
+        </form>
+      </div>
+    );
   }
 }
 

@@ -41,6 +41,32 @@ class FormTemplate extends Component {
     )
   }
 
+  renderSelect = (name, label, options) => {
+    const { data } = this.state
+    return (
+      < div className="form-group" >
+        <label htmlFor={name}>{label}</label>
+        <select
+          name={name}
+          value={data[name]}
+          onChange={this.handleChange}
+          autoFocus
+          id={name}
+          className="form-control"
+          required={true}
+        >
+          <option value='' />
+          {options.map(option => (
+            <option key={option._id} value={option._id}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+      </div >
+    )
+  }
+
+
 
 
 

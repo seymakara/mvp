@@ -6,7 +6,7 @@ import Customers from './components/Customers';
 import Rental from './components/Rental';
 import NotFound from './components/notFound';
 import NavBar from './components/NavBar';
-import Form from './components/Form';
+import ItemForm from './components/ItemForm';
 import Login from './components/Login';
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
         <main className='container'>
           <Switch>
             <Route path='/login' component={Login} />
-            <Route path='/movies/:id' component={Form} />
+            <Route path='/movies/:id' component={ItemForm} />
             <Route path='/movies' component={Movies} />
             <Route path='/customers' component={Customers} />
             <Route path='/rentals' component={Rental} />

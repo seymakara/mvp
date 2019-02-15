@@ -24,14 +24,14 @@ const WatchList = (props) => {
               <tr key={movie._id}>
                 <td><Link to={`/movies/${movie._id}`}>{movie.title}</Link></td>
                 <td>{movie.genre.name}</td>
-                <td>{movie.myScore}</td>
+                {/* <td>{movie.myScore}</td> */}
                 <td>{movie.imdbScore}</td>
-                <td>
+                {/* <td>
                   <Like
                     liked={movie.liked}
                   // handleLike={() => handleLike(movie)}
                   />
-                </td>
+                </td> */}
                 <td>
                   <button
                     className="btn btn-danger btn-sm"

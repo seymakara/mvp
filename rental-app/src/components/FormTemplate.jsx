@@ -22,8 +22,9 @@ class FormTemplate extends Component {
     )
   }
 
-  renderInput = (name, label, type = 'text') => {
+  renderInput = (name, label, error, type = 'text') => {
     const { data } = this.state
+    console.log('error', error)
     return (
       < div className="form-group" >
         <label htmlFor={name}>{label}</label>
@@ -35,8 +36,8 @@ class FormTemplate extends Component {
           autoFocus
           id={name}
           className="form-control"
-          required={true}
         />
+        {error && <div className="alert alert-danger">{error}</div>}
       </div >
     )
   }

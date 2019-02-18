@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import Like from './Like';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { getWatchList, getGenres } from '../services/fakeWatchList'
+import { getWatchList } from '../services/fakeWatchList'
 
 const WatchList = (props) => {
   const movies = getWatchList();

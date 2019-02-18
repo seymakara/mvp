@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { getMovie, saveMovie } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
 import FormTemplate from './FormTemplate';

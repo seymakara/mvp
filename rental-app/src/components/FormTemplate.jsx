@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
+import Joi from 'joi-browser';
 class FormTemplate extends Component {
   state = {
-    data: {}
+    data: {},
+    errors: {}
   }
 
   handleSubmit = e => {
@@ -10,19 +11,44 @@ class FormTemplate extends Component {
     this.doSubmit();
   }
 
-  handleChange = e => {
+  handleChange = ({ target }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validationOnChange(target);
+    if (errorMessage) { errors[target.name] = errorMessage }
+    else { delete errors[target.name] };
+
     const data = { ...this.state.data };
-    data[e.currentTarget.name] = e.currentTarget.value;
-    this.setState({ data })
+    data[target.name] = target.value;
+    this.setState({ data, errors })
+  }
+
+  validate = () => {
+    const result = Joi.validate(this.state.data, this.schema, { abortEarly: false });
+
+    if (!result.error) { return null };
+
+    const errors = {};
+    result.error.details.map(detail => {
+      errors[detail.path[0]] = detail.message
+    })
+
+    return errors;
+  }
+
+  validationOnChange = ({ name, value }) => {
+    const property = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(property, schema);
+    return error ? error.details[0].message : null;
   }
 
   renderButton = (label) => {
     return (
-      <button className="btn btn-primary">{label}</button>
+      <button disabled={this.validate()} className="btn btn-primary">{label}</button>
     )
   }
 
-  renderInput = (name, label, type = 'text') => {
+  renderInput = (name, label, error, type = 'text') => {
     const { data } = this.state
     return (
       < div className="form-group" >
@@ -35,8 +61,8 @@ class FormTemplate extends Component {
           autoFocus
           id={name}
           className="form-control"
-          required={true}
         />
+        {error && <div className="alert alert-danger">{error}</div>}
       </div >
     )
   }

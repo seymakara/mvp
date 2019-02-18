@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Like from './Like';
 import { Link } from 'react-router-dom';
 

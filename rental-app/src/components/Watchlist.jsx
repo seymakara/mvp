@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import Like from './Like';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { getWatchList, getGenres } from '../services/fakeWatchList'
+import { getWatchList } from '../services/fakeWatchList'
 
 const WatchList = (props) => {
   const movies = getWatchList();
@@ -24,14 +23,14 @@ const WatchList = (props) => {
               <tr key={movie._id}>
                 <td><Link to={`/movies/${movie._id}`}>{movie.title}</Link></td>
                 <td>{movie.genre.name}</td>
-                <td>{movie.myScore}</td>
+                {/* <td>{movie.myScore}</td> */}
                 <td>{movie.imdbScore}</td>
-                <td>
+                {/* <td>
                   <Like
                     liked={movie.liked}
                   // handleLike={() => handleLike(movie)}
                   />
-                </td>
+                </td> */}
                 <td>
                   <button
                     className="btn btn-danger btn-sm"

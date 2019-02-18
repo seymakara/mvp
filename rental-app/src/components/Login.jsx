@@ -8,40 +8,13 @@ class Login extends FormTemplate {
   }
 
   schema = {
-    username: Joi.string().required(),
-    password: Joi.string().required(),
-  }
-
-  validate = () => {
-    const errors = {};
-
-    const { data } = this.state;
-    if (data.username.trim() === '') {
-      errors.username = 'Username is required'
-    }
-    if (data.password.trim() === '') {
-      errors.password = 'Password is required'
-    }
-    return errors;
-    // const result = Joi.validate(this.state.data, this.schema);
-    // console.log(result);
-    // return result.details;
-  }
-
-  validationOnChange = ({ name, value }) => {
-    if (name === 'username') {
-      if (value.trim() === '') { return 'Username is required' }
-    };
-    if (name === 'password') {
-      if (value.trim() === '') { return 'password is required' }
-    };
+    username: Joi.string().required().label('Username'),
+    password: Joi.string().required().label('Password'),
   }
 
   doSubmit = () => {
-    // this.props.history.push('/movies')
     const errors = this.validate();
     this.setState({ errors });
-    // if (errors) return;
   }
 
   render() {

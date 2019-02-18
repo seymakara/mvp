@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Joi from 'joi-browser';
 class FormTemplate extends Component {
   state = {
     data: {},
@@ -22,9 +22,29 @@ class FormTemplate extends Component {
     this.setState({ data, errors })
   }
 
+  validate = () => {
+    const result = Joi.validate(this.state.data, this.schema, { abortEarly: false });
+
+    if (!result.error) { return null };
+
+    const errors = {};
+    result.error.details.map(detail => {
+      errors[detail.path[0]] = detail.message
+    })
+
+    return errors;
+  }
+
+  validationOnChange = ({ name, value }) => {
+    const property = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(property, schema);
+    return error ? error.details[0].message : null;
+  }
+
   renderButton = (label) => {
     return (
-      <button className="btn btn-primary">{label}</button>
+      <button disabled={this.validate()} className="btn btn-primary">{label}</button>
     )
   }
 

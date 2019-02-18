@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 class FormTemplate extends Component {
   state = {
-    data: {}
+    data: {},
+    errors: {}
   }
 
   handleSubmit = e => {
@@ -10,10 +11,15 @@ class FormTemplate extends Component {
     this.doSubmit();
   }
 
-  handleChange = e => {
+  handleChange = ({ target }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validationOnChange(target);
+    if (errorMessage) { errors[target.name] = errorMessage }
+    else { delete errors[target.name] };
+
     const data = { ...this.state.data };
-    data[e.currentTarget.name] = e.currentTarget.value;
-    this.setState({ data })
+    data[target.name] = target.value;
+    this.setState({ data, errors })
   }
 
   renderButton = (label) => {
@@ -24,7 +30,6 @@ class FormTemplate extends Component {
 
   renderInput = (name, label, error, type = 'text') => {
     const { data } = this.state
-    console.log('error', error)
     return (
       < div className="form-group" >
         <label htmlFor={name}>{label}</label>

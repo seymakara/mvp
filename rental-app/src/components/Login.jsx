@@ -28,11 +28,19 @@ class Login extends FormTemplate {
     // return result.details;
   }
 
+  validationOnChange = ({ name, value }) => {
+    if (name === 'username') {
+      if (value.trim() === '') { return 'Username is required' }
+    };
+    if (name === 'password') {
+      if (value.trim() === '') { return 'password is required' }
+    };
+  }
+
   doSubmit = () => {
     // this.props.history.push('/movies')
     const errors = this.validate();
-    console.log(errors);
-    this.setState({ errors: errors });
+    this.setState({ errors });
     // if (errors) return;
   }
 
@@ -40,7 +48,7 @@ class Login extends FormTemplate {
     let { password, username } = this.state.errors
     return (
       < div >
-        <h1>Login</h1>
+        <h1>Sign in</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput('username', 'Username', username)}
           {this.renderInput('password', 'Password', password, 'password')}

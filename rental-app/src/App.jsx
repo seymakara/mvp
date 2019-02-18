@@ -6,7 +6,8 @@ import Watchlist from './components/Watchlist';
 import NotFound from './components/notFound';
 import NavBar from './components/NavBar';
 import ItemForm from './components/ItemForm';
-import Login from './components/Login';
+import Signin from './components/Signin';
+import Signup from './components/Signup';
 
 class App extends Component {
   render() {
@@ -15,7 +16,8 @@ class App extends Component {
         <NavBar />
         <main className='container'>
           <Switch>
-            <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/signin' component={Signin} />
             <Route path='/movies/:id' component={ItemForm} />
             <Route path='/movies' component={Movies} />
             <Route path='/watchlist' component={Watchlist} />

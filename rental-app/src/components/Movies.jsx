@@ -5,6 +5,7 @@ import { Pagination, paginate } from './Pagination';
 import Categories from './Categories'
 import { getGenres } from '../services/fakeGenreService';
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 class Movies extends Component {
   state = {
@@ -12,7 +13,8 @@ class Movies extends Component {
     types: [],
     selectedType: '',
     itemsPerPage: 4,
-    currentPage: 1
+    currentPage: 1,
+    searchQuery: "",
   }
 
   handleDelete = (movie) => {
@@ -44,6 +46,25 @@ class Movies extends Component {
     })
   }
 
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, selectedType: '', currentPage: 1 })
+  }
+
+  handleFilteredData = () => {
+    const { currentPage, itemsPerPage, movies: allMovies, selectedType, searchQuery } = this.state;
+
+    let filtered = allMovies;
+    if (searchQuery) {
+      filtered = allMovies.filter(movie =>
+        movie.title.toLowerCase().startsWith(searchQuery.toLowerCase()))
+    } else if (selectedType && selectedType._id) {
+      filtered = allMovies.filter(movie => movie.genre._id === selectedType._id)
+    }
+    const movies = paginate(filtered, currentPage, itemsPerPage);
+    return { filteredCount: filtered.length, data: movies };
+
+  }
+
   componentDidMount = () => {
     const types = [{ name: 'All Genres' }, ...getGenres()]
     this.setState({ movies: getMovies(), types })
@@ -51,15 +72,12 @@ class Movies extends Component {
 
   render() {
     const { length: movieCount } = this.state.movies;
-    const { currentPage, itemsPerPage, movies: allMovies, selectedType } = this.state;
+    const { currentPage, itemsPerPage, searchQuery } = this.state;
     if (movieCount === 0) {
       return <p>There are no movies left to rent!</p>
     }
 
-    const filteredItems = selectedType && selectedType._id
-      ? allMovies.filter(movie => movie.genre._id === selectedType._id)
-      : allMovies;
-    const movies = paginate(filteredItems, currentPage, itemsPerPage);
+    const { filteredCount, data: movies } = this.handleFilteredData()
 
     return (
       <div className='row'>
@@ -77,9 +95,13 @@ class Movies extends Component {
           >
             Add
           </Link>
-          <MoviesTable movies={movies} handleDelete={this.handleDelete} handleLike={this.handleLike} />
+          <SearchBar value={searchQuery} onChange={this.handleSearch} />
+          <MoviesTable
+            movies={movies}
+            handleDelete={this.handleDelete}
+            handleLike={this.handleLike} />
           <Pagination
-            itemsCount={filteredItems.length}
+            itemsCount={filteredCount}
             itemsPerPage={itemsPerPage}
             currentPage={currentPage}
             onPageChange={this.handlePageChange}

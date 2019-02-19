@@ -18,6 +18,7 @@ class FormTemplate extends Component {
     const errorMessage = this.validationOnChange(target);
     if (errorMessage) { errors[target.name] = errorMessage }
     else { delete errors[target.name] };
+    console.log(errors)
 
     const data = { ...this.state.data };
     data[target.name] = target.value;
@@ -45,6 +46,7 @@ class FormTemplate extends Component {
   }
 
   renderButton = (label) => {
+    console.log('validation', this.validate())
     return (
       <button disabled={this.validate()} className="btn btn-primary">{label}</button>
     )
@@ -52,11 +54,10 @@ class FormTemplate extends Component {
 
   renderInput = (name, label, type = 'text') => {
     const { data, errors } = this.state;
-    console.log('name:', name)
     return (
       < div className="form-group" >
         <label htmlFor={name}>{label}</label>
-        <input
+        {/* <input
           name={name}
           type={type}
           value={data[name]}
@@ -64,7 +65,22 @@ class FormTemplate extends Component {
           autoFocus
           id={name}
           className="form-control"
-        />
+        /> */}
+        <div class="input-group">
+          <div class="input-group-prepend">
+            {name === 'username' && <div class="input-group-text">@</div>}
+          </div>
+          <input
+            name={name}
+            type={type}
+            value={data[name]}
+            onChange={this.handleChange}
+            autoFocus
+            id={name}
+            className="form-control"
+            placeholder={name}
+          />
+        </div>
         {errors[name] && <div className="alert alert-danger">{errors[name]}</div>}
       </div >
     )

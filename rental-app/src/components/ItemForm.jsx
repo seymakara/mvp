@@ -21,6 +21,7 @@ class ItemForm extends FormTemplate {
     title: Joi.string().required().label('Title'),
     genreId: Joi.string().required().label('Genre'),
     myScore: Joi.number().required().min(0).max(10).label('My Score'),
+    imdbScore: Joi.number().min(0).max(10).label('Imdb Score'),
   }
   componentDidMount() {
     const genres = getGenres();
@@ -56,6 +57,7 @@ class ItemForm extends FormTemplate {
           {this.renderInput('title', 'Title')}
           {this.renderSelect('genreId', 'Genre', this.state.genres)}
           {this.renderInput('myScore', 'My Score', 'number')}
+          {this.renderInput('imdbScore', 'Imdb Score', 'number')}
           {this.renderButton('Save')}
         </form>
       </div>

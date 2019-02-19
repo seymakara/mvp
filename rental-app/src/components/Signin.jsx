@@ -1,7 +1,7 @@
 import React from 'react';
 import FormTemplate from './FormTemplate';
 import Joi from 'joi-browser'
-class Login extends FormTemplate {
+class Signin extends FormTemplate {
   state = {
     data: { username: '', password: '' },
     errors: {}
@@ -13,23 +13,21 @@ class Login extends FormTemplate {
   }
 
   doSubmit = () => {
-    const errors = this.validate();
-    this.setState({ errors });
+    console.log('submitted')
   }
 
   render() {
-    let { password, username } = this.state.errors
     return (
       < div >
         <h1>Sign in</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput('username', 'Username', username)}
-          {this.renderInput('password', 'Password', password, 'password')}
-          {this.renderButton('Login')}
+          {this.renderInput('username', 'Username')}
+          {this.renderInput('password', 'Password', 'password')}
+          {this.renderButton('Sign in')}
         </form>
       </div >
     );
   }
 }
 
-export default Login;
+export default Signin;

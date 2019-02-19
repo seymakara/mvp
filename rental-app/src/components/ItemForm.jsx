@@ -2,6 +2,7 @@ import React from 'react';
 import { getMovie, saveMovie } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
 import FormTemplate from './FormTemplate';
+import Joi from 'joi-browser';
 
 class ItemForm extends FormTemplate {
   state = {
@@ -11,7 +12,15 @@ class ItemForm extends FormTemplate {
       myScore: '',
       imdbScore: '',
     },
-    genres: []
+    genres: [],
+    errors: {}
+  }
+
+  schema = {
+    _id: Joi.string(),
+    title: Joi.string().required().label('Title'),
+    genreId: Joi.string().required().label('Genre'),
+    myScore: Joi.number().required().min(0).max(10).label('My Score'),
   }
   componentDidMount() {
     const genres = getGenres();
@@ -33,7 +42,7 @@ class ItemForm extends FormTemplate {
     this.setState({ data: data })
   }
 
-  handleSubmit = () => {
+  doSubmit = () => {
     saveMovie(this.state.data)
     this.props.history.push('/movies')
   }

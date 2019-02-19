@@ -8,6 +8,8 @@ class FormTemplate extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const errors = this.validate();
+    this.setState({ errors: errors || {} });
     this.doSubmit();
   }
 
@@ -48,8 +50,9 @@ class FormTemplate extends Component {
     )
   }
 
-  renderInput = (name, label, error, type = 'text') => {
-    const { data } = this.state
+  renderInput = (name, label, type = 'text') => {
+    const { data, errors } = this.state;
+    console.log('name:', name)
     return (
       < div className="form-group" >
         <label htmlFor={name}>{label}</label>
@@ -62,7 +65,7 @@ class FormTemplate extends Component {
           id={name}
           className="form-control"
         />
-        {error && <div className="alert alert-danger">{error}</div>}
+        {errors[name] && <div className="alert alert-danger">{errors[name]}</div>}
       </div >
     )
   }
@@ -91,12 +94,6 @@ class FormTemplate extends Component {
       </div >
     )
   }
-
-
-
-
-
-
 }
 
 export default FormTemplate;
